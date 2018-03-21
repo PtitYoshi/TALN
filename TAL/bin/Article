@@ -1,0 +1,164 @@
+-----Article : DET
+un
+une
+des
+le
+la
+les
+l'
+-----Article partitif : DET
+de la
+du
+de l'
+-----Adjectif possessif : DET
+mon
+ma
+mes
+ton
+ta
+tes
+son
+sa
+ses
+nos
+vos
+leur
+-----Adjectifs démonstratifs : DET
+ce
+cet
+cette
+ces
+-----Adjectifs numéral : DET
+un
+deux
+trois
+quatres
+cinq
+six
+-----Adjectifs indéfini : DET
+aucun
+aucune
+-----Adjectifs exclamatifs : DET
+quel
+quels
+quelle
+quelles
+-----Noms Communs : NOMC
+chat
+chats
+chien
+chiens
+chaise
+chaises
+maison
+maisons
+gateau
+gateaux
+-----Noms Propres : NOMP
+Pierre
+Marie
+Marius
+Matthieu
+Quentin
+-----Pronoms Sujets neutres: PRNSUJ
+c'
+cela
+-----Pronoms Personnel Sujets : PRNSUJ
+je
+tu
+il
+elle
+nous
+vous
+ils
+elles
+-----Pronoms interrogatifs : PRNSUJ
+quel
+quels
+quelle
+quelles
+qui
+qu'
+lequel
+lesquels
+laquelle
+lesquelles
+-----Pronoms Personnels accentués : PRNSUJ
+lui
+eux
+-----Pronoms personnels Objets : PRNOBJ
+le
+la
+les
+-----Pronoms reflechi : PRNOBJ
+me
+te
+se
+lui
+leur
+-----Pronoms neutres : PRNOBJ
+en
+-----Pronoms personnels accentués : PRNOBJ
+moi
+toi
+lui
+elle
+elles
+eux
+-----Pronom introduisant une proposition relative : PRNREL
+qui
+que
+qu'
+quoi
+dont
+où
+-----Locutions pronominales introduisant une proposition sujet ou objet : PRNREL
+ce que
+ce qui
+ce pourquoi
+ce à quoi
+auquel
+auxquels
+à laquelle
+auxquelles
+duquel
+desquels
+desquelles
+de laquelle
+----Pronom personnel accentué : PRNPNM
+moi
+toi
+lui
+elle
+elles
+eux
+-----Pronom possessif : PRNPNM
+mien
+miens
+mienne
+miennes
+tien
+tiens
+tienne
+tiennes
+sien
+siens
+sienne
+siennes
+leur
+leurs
+-----Verbes : VRB
+manger
+dormir
+boire
+aller
+regarder
+-----Verbes auxilliaires : AUX
+etre
+avoir
+-----Participe Passé : PPAS
+mangé
+dormi
+bu
+allé
+regardé
