@@ -112,7 +112,7 @@ public class Application {
 		System.out.println("Integration des mots");
 		System.out.println("-----------------------------------------\n");
 		
-		File f= new File("src/Article");
+		File f= new File("Article");
 		
 		BufferedReader br = new BufferedReader(new FileReader(f));
 		String line;
