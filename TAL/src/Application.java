@@ -14,36 +14,39 @@ public class Application {
 
 	public static void main(String[] args) throws IOException {
 		
+		HashMap<String, Integer> tagList=new HashMap<String, Integer>();
+		ArrayList<Categorie> Dictionary = new ArrayList<Categorie>();
+		
+		createCategories(Dictionary, tagList);
+		
+		readFile(Dictionary, tagList);
+		
+		checkDictionary(Dictionary);
+		
+		fn_chomsky();
+	}
+	
+	
+	private static void createCategories(ArrayList<Categorie> Dictionary, HashMap<String, Integer> tagList) {
 		System.out.println("\n-----------------------------------------");
 		System.out.println("Conception des Categories de mots");
 		System.out.println("-----------------------------------------\n");
 		
-		//ArrayList<Etiquette> tagList = new ArrayList<Etiquette>();
-		
-		HashMap<String, Integer> tagList=new HashMap<String, Integer>();
 		int i=0;
-		
-		ArrayList<Categorie> Dictionary = new ArrayList<Categorie>();
 		
 		Categorie DET = new Categorie("DETERMINANT");
 		tagList.put(DET.addTag("DET"), new Integer(i));
 		tagList.put(DET.addTag("DETPREP"), new Integer(i));
-		
 		System.out.println(DET.toString());
-		
 		//tagList.addAll(DET.getTagAutorized());
-		
 		Dictionary.add(DET);
 		i++;
 		
 		Categorie SUB = new Categorie("SUBSTANTIF");
 		tagList.put(SUB.addTag("NOMC"), new Integer(i));
 		tagList.put(SUB.addTag("NOMP"), new Integer(i));
-		
 		System.out.println(SUB.toString());
-		
 		//tagList.addAll(SUB.getTagAutorized());
-		
 		Dictionary.add(SUB);
 		i++;
 		
@@ -52,11 +55,8 @@ public class Application {
 		tagList.put(PRO.addTag(("PRNOBJ")), new Integer(i));
 		tagList.put(PRO.addTag(("PRNREL")), new Integer(i));
 		tagList.put(PRO.addTag(("PRNPNM")), new Integer(i));
-		
 		System.out.println(PRO.toString());
-		
 		//tagList.addAll(PRO.getTagAutorized());
-		
 		Dictionary.add(PRO);
 		i++;
 		
@@ -64,11 +64,8 @@ public class Application {
 		tagList.put(VRB.addTag(("VRB")), new Integer(i));
 		tagList.put(VRB.addTag(("AUX")), new Integer(i));
 		tagList.put(VRB.addTag(("PPAS")), new Integer(i));
-		
 		System.out.println(VRB.toString());
-		
 		//tagList.addAll(VRB.getTagAutorized());
-		
 		Dictionary.add(VRB);
 		i++;
 		
@@ -76,38 +73,30 @@ public class Application {
 		tagList.put(MOD.addTag(("ADJ")), new Integer(i));
 		tagList.put(MOD.addTag(("ATT")), new Integer(i));
 		tagList.put(MOD.addTag(("ADV")), new Integer(i));
-		
 		System.out.println(MOD.toString());
-		
 		//tagList.addAll(MOD.getTagAutorized());
-		
 		Dictionary.add(MOD);
 		i++;
 		
 		Categorie PRE = new Categorie("PREPOSITION");
 		tagList.put(PRE.addTag(("PREP")), new Integer(i));
-		
 		System.out.println(PRE.toString());
-		
 		//tagList.addAll(PRE.getTagAutorized());
-		
 		Dictionary.add(PRE);
 		i++;
 		
 		Categorie CON = new Categorie("CONJONCTION");
 		tagList.put(CON.addTag(("COOR")), new Integer(i));
 		tagList.put(CON.addTag(("SUB")), new Integer(i));
-		
 		System.out.println(CON.toString());
-		
 		//tagList.addAll(CON.getTagAutorized());
-		
 		Dictionary.add(CON);
 		i++;
 		
-		
 		System.out.println("Liste des tags : "+tagList.toString());
-		
+	}
+
+	private static void readFile(ArrayList<Categorie> Dictionary, HashMap<String, Integer> tagList) throws IOException {
 		System.out.println("\n-----------------------------------------");
 		System.out.println("Integration des mots");
 		System.out.println("-----------------------------------------\n");
@@ -143,7 +132,9 @@ public class Application {
 		}
 		
 		br.close();
-		
+	}
+
+	private static void checkDictionary(ArrayList<Categorie> Dictionary) {
 		System.out.println("\n-----------------------------------------");
 		System.out.println("Verification des Dictionnaires");
 		System.out.println("-----------------------------------------\n");
@@ -152,7 +143,9 @@ public class Application {
 		{
 			System.out.println(Dictionary.get(k).toString()+"\n");
 		}
-		
+	}
+
+	private static void fn_chomsky() {
 		System.out.println("\n-----------------------------------------");
 		System.out.println("Analyse de phrases en FN - Chomsky");
 		System.out.println("-----------------------------------------\n");
@@ -165,7 +158,7 @@ public class Application {
 		 	Decouper s en ArrayList<String>
 		*/
 		Grammaire g = new Grammaire();
-		String s1 = "le bien qu'il fait il le fait bien";
+		String s1 = "le bien qu'il fait, il le fait bien.";
 		
 		g.backtrack(s1);
 	}
