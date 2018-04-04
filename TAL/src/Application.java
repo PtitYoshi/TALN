@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -17,75 +19,95 @@ public class Application {
 		System.out.println("Conception des Categories de mots");
 		System.out.println("-----------------------------------------\n");
 		
-		ArrayList<Etiquette> tagList = new ArrayList<Etiquette>();
+		//ArrayList<Etiquette> tagList = new ArrayList<Etiquette>();
+		
+		HashMap<String, Integer> tagList=new HashMap<String, Integer>();
+		int i=0;
+		
+		ArrayList<Categorie> Dictionary = new ArrayList<Categorie>();
 		
 		Categorie DET = new Categorie("DETERMINANT");
-		DET.addTag(new Etiquette("DET"));
-		DET.addTag(new Etiquette("DETPREP"));
+		tagList.put(DET.addTag("DET"), new Integer(i));
+		tagList.put(DET.addTag("DETPREP"), new Integer(i));
 		
 		System.out.println(DET.toString());
 		
-		tagList.addAll(DET.getTagAutorized());
+		//tagList.addAll(DET.getTagAutorized());
+		
+		Dictionary.add(DET);
+		i++;
 		
 		Categorie SUB = new Categorie("SUBSTANTIF");
-		SUB.addTag(new Etiquette("NOMC"));
-		SUB.addTag(new Etiquette("NOMP"));
+		tagList.put(SUB.addTag("NOMC"), new Integer(i));
+		tagList.put(SUB.addTag("NOMP"), new Integer(i));
 		
 		System.out.println(SUB.toString());
 		
-		tagList.addAll(SUB.getTagAutorized());
+		//tagList.addAll(SUB.getTagAutorized());
+		
+		Dictionary.add(SUB);
+		i++;
 		
 		Categorie PRO = new Categorie("PRONOM");
-		PRO.addTag(new Etiquette("PRNSUJ"));
-		PRO.addTag(new Etiquette("PRNOBJ"));
-		PRO.addTag(new Etiquette("PRNREL"));
-		PRO.addTag(new Etiquette("PRNPNM"));
+		tagList.put(PRO.addTag(("PRNSUJ")), new Integer(i));
+		tagList.put(PRO.addTag(("PRNOBJ")), new Integer(i));
+		tagList.put(PRO.addTag(("PRNREL")), new Integer(i));
+		tagList.put(PRO.addTag(("PRNPNM")), new Integer(i));
 		
 		System.out.println(PRO.toString());
 		
-		tagList.addAll(PRO.getTagAutorized());
+		//tagList.addAll(PRO.getTagAutorized());
+		
+		Dictionary.add(PRO);
+		i++;
 		
 		Categorie VRB = new Categorie("VERBE");
-		VRB.addTag(new Etiquette("VRB"));
-		VRB.addTag(new Etiquette("AUX"));
-		VRB.addTag(new Etiquette("PPAS"));
+		tagList.put(VRB.addTag(("VRB")), new Integer(i));
+		tagList.put(VRB.addTag(("AUX")), new Integer(i));
+		tagList.put(VRB.addTag(("PPAS")), new Integer(i));
 		
 		System.out.println(VRB.toString());
 		
-		tagList.addAll(VRB.getTagAutorized());
+		//tagList.addAll(VRB.getTagAutorized());
+		
+		Dictionary.add(VRB);
+		i++;
 		
 		Categorie MOD = new Categorie("MODIFIEUR");
-		MOD.addTag(new Etiquette("ADJ"));
-		MOD.addTag(new Etiquette("ATT"));
-		MOD.addTag(new Etiquette("ADV"));
+		tagList.put(MOD.addTag(("ADJ")), new Integer(i));
+		tagList.put(MOD.addTag(("ATT")), new Integer(i));
+		tagList.put(MOD.addTag(("ADV")), new Integer(i));
 		
 		System.out.println(MOD.toString());
 		
-		tagList.addAll(MOD.getTagAutorized());
+		//tagList.addAll(MOD.getTagAutorized());
+		
+		Dictionary.add(MOD);
+		i++;
 		
 		Categorie PRE = new Categorie("PREPOSITION");
-		PRE.addTag(new Etiquette("PREP"));
+		tagList.put(PRE.addTag(("PREP")), new Integer(i));
 		
 		System.out.println(PRE.toString());
 		
-		tagList.addAll(PRE.getTagAutorized());
+		//tagList.addAll(PRE.getTagAutorized());
+		
+		Dictionary.add(PRE);
+		i++;
 		
 		Categorie CON = new Categorie("CONJONCTION");
-		CON.addTag(new Etiquette("COOR"));
-		CON.addTag(new Etiquette("SUB"));
+		tagList.put(CON.addTag(("COOR")), new Integer(i));
+		tagList.put(CON.addTag(("SUB")), new Integer(i));
+		
+		System.out.println(CON.toString());
+		
+		//tagList.addAll(CON.getTagAutorized());
+		
+		Dictionary.add(CON);
+		i++;
 		
 		
 		System.out.println("Liste des tags : "+tagList.toString());
-		
-		//Rassemblement des Categories
-				ArrayList<Categorie> dico = new ArrayList<Categorie>();
-				dico.add(DET);
-				dico.add(SUB);
-				dico.add(PRO);
-				dico.add(VRB);
-				dico.add(MOD);
-				dico.add(PRE);
-				dico.add(CON);
 		
 		System.out.println("\n-----------------------------------------");
 		System.out.println("Integration des mots");
@@ -95,65 +117,58 @@ public class Application {
 		
 		BufferedReader br = new BufferedReader(new FileReader(f));
 		String line;
-		
-		while((line = br.readLine()) != null)
+		int ind=0;
+		String tag="";
+		while((line=br.readLine()) != null)
 		{
 			if(line.contains("-----"))
 			{
 				//Obtenir le tag dans le fichier
-				//System.out.println(line.subSequence(line.indexOf(":")+2, line.length()));
-				System.out.println("FOR "+line.subSequence(line.indexOf(":")+2, line.length())+"\n");
-				for(int i=0;i<tagList.size();i++)
+				tag=(String) line.subSequence(line.indexOf(":")+2, line.length());
+				System.out.println("FOR "+tag+"\n");
+				if(tagList.containsKey(tag))
 				{
-					if(tagList.get(i).getEt().equals(line.subSequence(line.indexOf(":")+2, line.length())))
-						System.out.println(tagList.get(i).getEt().equals(line.subSequence(line.indexOf(":")+2, line.length())));
-						
+					ind=tagList.get(tag);
+					System.out.println(ind);
+				}
+				else
+				{
+					System.err.println("Tag non valide dans le fichier : "+tag);
 				}
 			}
-		}
-				
-		/*
-		System.out.println("-----------------------------------------");
-		System.out.println("Conception de la categorie Determinant");
-		
-		ArrayList<ArrayList<Mot>> words=new ArrayList<ArrayList<Mot>>();
-		File f=new File("src/Article");
-		
-		
-		System.out.println("Chemin absolu du fichier : " + f.getAbsolutePath());
-
-	    System.out.println("Nom du fichier : " + f.getName());
-
-	    System.out.println("Est-ce qu'il existe ? " + f.exists());
-
-	    System.out.println("Est-ce un répertoire ? " + f.isDirectory());
-
-	    System.out.println("Est-ce un fichier ? " + f.isFile());
-		
-		
-		BufferedReader br = new BufferedReader(new FileReader(f));
-		String line;
-		int i=-1;
-		while ((line = br.readLine()) != null) {
-		   //art.add(new Etiquette(line));
-			if(line.contains("-----"))
-			{
-				words.add(new ArrayList<Mot>());
-				i++;
-			}
 			else
-				words.get(i).add(new Mot(line,new Etiquette("a")));
-			
+			{
+				Dictionary.get(ind).addWord(line, tag);
+				System.out.println("Le mot <"+line+"> est intégré au tag "+tag);
+			}
 		}
+		
 		br.close();
 		
-		CategorieDet Article=new CategorieDet("Article",words.get(0));
+		System.out.println("\n-----------------------------------------");
+		System.out.println("Verification des Dictionnaires");
+		System.out.println("-----------------------------------------\n");
 		
-		System.out.println(Article.toString());
+		for(int k=0;k<Dictionary.size();k++)
+		{
+			System.out.println(Dictionary.get(k).toString()+"\n");
+		}
 		
-
-		System.out.println("-----------------------------------------");
-		System.out.println("Test : ");*/
+		System.out.println("\n-----------------------------------------");
+		System.out.println("Analyse de phrases en FN - Chomsky");
+		System.out.println("-----------------------------------------\n");
+		
+		/*
+		Soit une phrase s (ex : le bien qu'il fait, il le fait bien)
+		
+		 On recherche à decomposer cette phrase en séquences respectant les règles de notre grammaire
+		 Algorithme(s:String, g:Grammaire)
+		 	Decouper s en ArrayList<String>
+		*/
+		Grammaire g = new Grammaire();
+		String s1 = "le bien qu'il fait il le fait bien";
+		
+		g.backtrack(s1);
 	}
 	
 }
