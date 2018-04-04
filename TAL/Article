@@ -43,6 +43,13 @@ quel
 quels
 quelle
 quelles
+-----Determinants prépositionnels : DETPREP
+avec
+à côté de
+dans
+parmi
+sur
+sous
 -----Noms Communs : NOMC
 chat
 chats
@@ -162,3 +169,11 @@ dormi
 bu
 allé
 regardé
+-----Ponctuation - Virgule : VIR
+,
+-----Ponctuation - Point : PNT
+.
+-----Ponctuation - Exclamation : EXC
+!
+-----Ponctuation - Interrogation : INT
+?
