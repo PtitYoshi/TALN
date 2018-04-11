@@ -23,7 +23,8 @@ public class Application {
 		
 		checkDictionary(Dictionary);
 		
-		fn_chomsky();
+		String s1 = "le bien qu'il fait, il le fait bien.";
+		fn_chomsky(s1);
 	}
 	
 	
@@ -93,6 +94,15 @@ public class Application {
 		Dictionary.add(CON);
 		i++;
 		
+		Categorie PON = new Categorie("PONCTUATION");
+		tagList.put(PON.addTag("PNT"), new Integer(i));
+		tagList.put(PON.addTag("VIR"), new Integer(i));
+		tagList.put(PON.addTag("EXC"), new Integer(i));
+		tagList.put(PON.addTag("INT"), new Integer(i));
+		
+		Dictionary.add(PON);
+		i++;
+		
 		System.out.println("Liste des tags : "+tagList.toString());
 	}
 
@@ -101,7 +111,7 @@ public class Application {
 		System.out.println("Integration des mots");
 		System.out.println("-----------------------------------------\n");
 		
-		File f= new File("Article");
+		File f= new File("Dictionnaire");
 		
 		BufferedReader br = new BufferedReader(new FileReader(f));
 		String line;
@@ -121,13 +131,13 @@ public class Application {
 				}
 				else
 				{
-					System.err.println("Tag non valide dans le fichier : "+tag);
+					System.err.println("Tag non valide dans le fichier : "+tag+"\n");
 				}
 			}
 			else
 			{
 				Dictionary.get(ind).addWord(line, tag);
-				System.out.println("Le mot <"+line+"> est intégré au tag "+tag);
+				System.out.println("Le mot <"+line+"> est intégré au tag "+tag+"\n");
 			}
 		}
 		
@@ -145,7 +155,7 @@ public class Application {
 		}
 	}
 
-	private static void fn_chomsky() {
+	private static void fn_chomsky(String s) throws IOException {
 		System.out.println("\n-----------------------------------------");
 		System.out.println("Analyse de phrases en FN - Chomsky");
 		System.out.println("-----------------------------------------\n");
@@ -157,10 +167,13 @@ public class Application {
 		 Algorithme(s:String, g:Grammaire)
 		 	Decouper s en ArrayList<String>
 		*/
-		Grammaire g = new Grammaire();
-		String s1 = "le bien qu'il fait, il le fait bien.";
+		File fg = new File("Grammaire");
 		
-		g.backtrack(s1);
+		
+		Grammaire g = new Grammaire(fg);
+		System.out.println("\n");
+		
+		g.analyse(s);
 	}
 	
 }

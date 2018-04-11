@@ -13,9 +13,17 @@ public class Rule {
 	public Rule(String hyp, ArrayList<String> con)
 	{
 		hypothesis = hyp;
-		conclusion = new ArrayList<String>(con);
+		conclusion = new ArrayList<String>();
+		for(int i=0;i<con.size();i++)
+		{
+			conclusion.add(con.get(i));
+		}
 	}
 
+	public String toString()
+	{
+		return hypothesis+" -> "+conclusion.toString();
+	}
 	
 	//Accesseurs
 	
