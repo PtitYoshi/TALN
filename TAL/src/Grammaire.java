@@ -1,31 +1,25 @@
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
 
 
 public class Grammaire {
 
 	private ArrayList<Rule> rules;
-	private ArrayList<String> tagList;
 	
 	
 // Constructeur
 	public Grammaire()
 	{
 		setRules(new ArrayList<Rule>());
-		tagList=new ArrayList<String>();
 	}
 	
 	@SuppressWarnings("resource")
 	public Grammaire(File file) throws IOException
 	{
 		rules = new ArrayList<Rule>();
-		tagList=new ArrayList<String>();
 		System.out.println("Construction de la grammaire");
 		String hypothesis;
 		ArrayList<String> conclusion;
@@ -64,8 +58,6 @@ public class Grammaire {
 			{
 				//Obtenir le tag dans le fichier
 				tag=(String) line.subSequence(line.indexOf(":")+2, line.length());
-				if(!tagList.contains(tag))
-					tagList.add(tag);
 			}
 			else
 			{
@@ -82,7 +74,6 @@ public class Grammaire {
 		{
 			System.out.println(rules.get(i).toString());
 		}
-		System.out.println("\nListe des tags : "+tagList.toString());
 		return null;
 	}
 	
@@ -91,15 +82,6 @@ public class Grammaire {
 	public ArrayList<Rule> getRules() { return rules; }
 	
 	public void setRules(ArrayList<Rule> rules) { this.rules = rules; }
-	
-
-	public ArrayList<String> getTagList() {
-		return tagList;
-	}
-
-	public void setTagList(ArrayList<String> tagList) {
-		this.tagList = tagList;
-	}
 	
 	
 	
@@ -206,7 +188,6 @@ public class Grammaire {
 				}
 				display+="|";
 			}
-			display+="|";
 			System.out.println(display);
 		}
 	}
