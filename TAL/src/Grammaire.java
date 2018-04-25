@@ -1,25 +1,31 @@
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 
 
 public class Grammaire {
 
 	private ArrayList<Rule> rules;
+	private ArrayList<String> tagList;
 	
 	
 // Constructeur
 	public Grammaire()
 	{
 		setRules(new ArrayList<Rule>());
+		tagList=new ArrayList<String>();
 	}
 	
 	@SuppressWarnings("resource")
 	public Grammaire(File file) throws IOException
 	{
 		rules = new ArrayList<Rule>();
+		tagList=new ArrayList<String>();
 		System.out.println("Construction de la grammaire");
 		String hypothesis;
 		ArrayList<String> conclusion;
@@ -47,12 +53,53 @@ public class Grammaire {
 		System.out.println("Liste de règles : \n"+rules.toString());
 	}
 	
+	public void fillRules(File f) throws IOException
+	{		
+		BufferedReader br = new BufferedReader(new FileReader(f));
+		String line;
+		String tag="";
+		while((line=br.readLine()) != null)
+		{
+			if(line.contains("-----"))
+			{
+				//Obtenir le tag dans le fichier
+				tag=(String) line.subSequence(line.indexOf(":")+2, line.length());
+				if(!tagList.contains(tag))
+					tagList.add(tag);
+			}
+			else
+			{
+				rules.add(new Rule(tag,line));
+			}
+		}
+		br.close();
+	}
+	
+	public String toString()
+	{
+		System.out.println("Liste des règles de la grammaire : \n");
+		for(int i=0;i<rules.size();i++)
+		{
+			System.out.println(rules.get(i).toString());
+		}
+		System.out.println("\nListe des tags : "+tagList.toString());
+		return null;
+	}
+	
 // Accesseurs
-	// Get
+	
 	public ArrayList<Rule> getRules() { return rules; }
 	
-	// Set
 	public void setRules(ArrayList<Rule> rules) { this.rules = rules; }
+	
+
+	public ArrayList<String> getTagList() {
+		return tagList;
+	}
+
+	public void setTagList(ArrayList<String> tagList) {
+		this.tagList = tagList;
+	}
 	
 	
 	
@@ -76,21 +123,64 @@ public class Grammaire {
 				phrase.add(tmp[i]);
 		}
 		System.out.println(phrase);
-		
-		ArrayList<Object> result=new ArrayList<Object>();
-		if(backtrack(phrase,result,"P"))
-			System.out.println("resultat trouvé : "+result.toString());
-		else
-			System.out.println("Phrase invalide");
+		CYK(phrase,tagList);
 	}
 	
-	public boolean backtrack(ArrayList<String> aTraiter,ArrayList<Object> traite, String currentTag)
+	@SuppressWarnings("unchecked")
+	private void CYK(ArrayList<String> phrase, ArrayList<String> tagList)
 	{
-		/*Pour chaque mot :
-		 * Si son tag est une hypothese de règle, alors il faut pouvoir découper le tableau pour valider la conclusion d'au moins l'une de ces regles (recurrence), sinon phrase invalide
-		 * Si son tag n'est pas hypothese d'une regle, alors le mot doit apparaitre dans le dico approprié au tag, sinon mot inconnu
-		 * */
-		return false;
+		Object[][] cyk = new Object[phrase.size()][phrase.size()];
+		for(int i=0;i<phrase.size();i++)
+		{
+			cyk[0][i] = new ArrayList<String>();
+			for(int j=0;j<rules.size();j++)
+			{
+				if(rules.get(j).getConclusion().size()==1&&rules.get(j).getConclusion().get(0).equals(phrase.get(i)))
+				{
+					//cyk[i][i] = rules.get(j).getHypothesis();
+					((ArrayList<String>) cyk[0][i]).add(rules.get(j).getHypothesis());
+				}
+			}
+		}
+		
+		for(int i=1;i<phrase.size();i++)
+		{
+			for(int j=0;j<phrase.size()-1;j++)
+			{
+				for(int k=0;k<i;k++)
+				{
+					//M(i,j) = A si B ∈  M(k,j) et C ∈  M(i-k-1,j+k+1) et A-> BC ∈  P.
+					cyk[i][j]=new ArrayList<String>();
+					
+					for(int r=0;r<rules.size();r++)
+					{
+						if(rules.get(r).getConclusion().size()==2
+								&&((ArrayList<String>) cyk[k][j]).contains(rules.get(r).getConclusion().get(0))
+								&&((ArrayList<String>) cyk[i-k-1][j+k+1]).contains(rules.get(r).getConclusion().get(1)))
+						{
+							((ArrayList<String>) cyk[i][j]).add(rules.get(r).getHypothesis());
+						}
+					}
+				}
+			}
+		}
+		
+		System.out.println("Affichage du CYK : \n");
+		String display="";
+		for(int i=0;i<cyk.length;i++)
+		{
+			display+=phrase.get(i)+"\t|";
+		}
+		System.out.println(display);
+		for(int i=0;i<cyk.length;i++)
+		{
+			display="";
+			for(int j=0;j<cyk[i].length;j++)
+			{
+				display+=cyk[i][j]+"\t|";
+			}
+			System.out.println(display);
+		}
 	}
 	
 

@@ -17,11 +17,11 @@ public class Application {
 		HashMap<String, Integer> tagList=new HashMap<String, Integer>();
 		ArrayList<Categorie> Dictionary = new ArrayList<Categorie>();
 		
-		createCategories(Dictionary, tagList);
+		//createCategories(Dictionary, tagList);
 		
-		readFile(Dictionary, tagList);
+		//readFile(Dictionary, tagList);
 		
-		checkDictionary(Dictionary);
+		//checkDictionary(Dictionary);
 		
 		String s1 = "le bien qu'il fait, il le fait bien.";
 		fn_chomsky(s1);
@@ -168,10 +168,13 @@ public class Application {
 		 	Decouper s en ArrayList<String>
 		*/
 		File fg = new File("Grammaire");
+		File fw = new File("Dictionnaire");
 		
 		
 		Grammaire g = new Grammaire(fg);
+		g.fillRules(fw);
 		System.out.println("\n");
+		g.toString();
 		
 		g.analyse(s);
 	}

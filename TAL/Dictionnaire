@@ -61,6 +61,7 @@ maison
 maisons
 gateau
 gateaux
+bien
 -----Noms Propres : NOMP
 Pierre
 Marie
@@ -160,6 +161,7 @@ dormir
 boire
 aller
 regarder
+fait
 -----Verbes auxilliaires : AUX
 etre
 avoir
@@ -169,6 +171,8 @@ dormi
 bu
 allé
 regardé
+-----Adjectifs : ADJ
+bien
 -----Ponctuation - Virgule : VIR
 ,
 -----Ponctuation - Point : PNT

@@ -10,6 +10,14 @@ public class Rule {
 		conclusion = new ArrayList<String>();
 	}
 	
+	public Rule(String hyp,String con)
+	{
+		hypothesis=hyp;
+		conclusion=new ArrayList<String>();
+		
+		conclusion.add(con);
+	}
+	
 	public Rule(String hyp, ArrayList<String> con)
 	{
 		hypothesis = hyp;
