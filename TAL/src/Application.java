@@ -13,10 +13,7 @@ public class Application {
 	}
 
 	public static void main(String[] args) throws IOException {
-		
-		HashMap<String, Integer> tagList=new HashMap<String, Integer>();
-		ArrayList<Categorie> Dictionary = new ArrayList<Categorie>();
-		
+				
 		//createCategories(Dictionary, tagList);
 		
 		//readFile(Dictionary, tagList);
@@ -144,17 +141,6 @@ public class Application {
 		br.close();
 	}
 
-	private static void checkDictionary(ArrayList<Categorie> Dictionary) {
-		System.out.println("\n-----------------------------------------");
-		System.out.println("Verification des Dictionnaires");
-		System.out.println("-----------------------------------------\n");
-		
-		for(int k=0;k<Dictionary.size();k++)
-		{
-			System.out.println(Dictionary.get(k).toString()+"\n");
-		}
-	}
-
 	private static void fn_chomsky(String s) throws IOException {
 		System.out.println("\n-----------------------------------------");
 		System.out.println("Analyse de phrases en FN - Chomsky");
@@ -168,11 +154,9 @@ public class Application {
 		 	Decouper s en ArrayList<String>
 		*/
 		File fg = new File("Grammaire");
-		File fw = new File("Dictionnaire");
 		
 		
 		Grammaire g = new Grammaire(fg);
-		g.fillRules(fw);
 		System.out.println("\n");
 		g.toString();
 		

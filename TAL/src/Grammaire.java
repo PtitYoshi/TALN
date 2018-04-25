@@ -123,16 +123,25 @@ public class Grammaire {
 				phrase.add(tmp[i]);
 		}
 		System.out.println(phrase);
-		CYK(phrase,tagList);
+		CYK(phrase);
 	}
 	
 	@SuppressWarnings("unchecked")
-	private void CYK(ArrayList<String> phrase, ArrayList<String> tagList)
+	private void CYK(ArrayList<String> phrase)
 	{
 		Object[][] cyk = new Object[phrase.size()][phrase.size()];
+		
 		for(int i=0;i<phrase.size();i++)
 		{
-			cyk[0][i] = new ArrayList<String>();
+			for(int j=0;j<phrase.size();j++)
+			{
+				cyk[i][j] = new ArrayList<String>();
+			}
+		}
+		
+		for(int i=0;i<phrase.size();i++)
+		{
+			//cyk[0][i] = new ArrayList<String>();
 			for(int j=0;j<rules.size();j++)
 			{
 				if(rules.get(j).getConclusion().size()==1&&rules.get(j).getConclusion().get(0).equals(phrase.get(i)))
@@ -142,34 +151,46 @@ public class Grammaire {
 				}
 			}
 		}
-		
+		int step=0;
 		for(int i=1;i<phrase.size();i++)
 		{
+			step++;
 			for(int j=0;j<phrase.size()-1;j++)
 			{
+				System.out.println("Etape "+step+" : "+phrase.get(j));
 				for(int k=0;k<i;k++)
 				{
 					//M(i,j) = A si B ∈  M(k,j) et C ∈  M(i-k-1,j+k+1) et A-> BC ∈  P.
-					cyk[i][j]=new ArrayList<String>();
-					
+					//System.out.println("\tIl y a-t-il une règle entre "+cyk[k][j]+" et "+cyk[i-k-1][j+k+1]+" ?");
+					//cyk[i][j]=new ArrayList<String>();
 					for(int r=0;r<rules.size();r++)
 					{
 						if(rules.get(r).getConclusion().size()==2
 								&&((ArrayList<String>) cyk[k][j]).contains(rules.get(r).getConclusion().get(0))
 								&&((ArrayList<String>) cyk[i-k-1][j+k+1]).contains(rules.get(r).getConclusion().get(1)))
 						{
+							System.out.println("\t\tYES");
 							((ArrayList<String>) cyk[i][j]).add(rules.get(r).getHypothesis());
 						}
 					}
+					System.out.println("\t\tVerification terminé !");
 				}
 			}
 		}
 		
 		System.out.println("Affichage du CYK : \n");
 		String display="";
+		int numberTab;
+		int tab=2;
 		for(int i=0;i<cyk.length;i++)
 		{
-			display+=phrase.get(i)+"\t|";
+			display+=phrase.get(i);
+			numberTab = display.length()%4;
+			for(int t=0;t<tab-numberTab;t++)
+			{
+				display+="\t";
+			}
+			display+="|";
 		}
 		System.out.println(display);
 		for(int i=0;i<cyk.length;i++)
@@ -177,8 +198,15 @@ public class Grammaire {
 			display="";
 			for(int j=0;j<cyk[i].length;j++)
 			{
-				display+=cyk[i][j]+"\t|";
+				display+=cyk[i][j];
+				numberTab = display.length()%4;
+				for(int t=0;t<tab-numberTab;t++)
+				{
+					display+="\t";
+				}
+				display+="|";
 			}
+			display+="|";
 			System.out.println(display);
 		}
 	}
