@@ -20,15 +20,15 @@ public class Grammaire {
 	public Grammaire(File file) throws IOException
 	{
 		rules = new ArrayList<Rule>();
-		System.out.println("Construction de la grammaire");
+//		System.out.println("Construction de la grammaire");
 		String hypothesis;
 		ArrayList<String> conclusion;
 		BufferedReader br = new BufferedReader(new FileReader(file));
 		String line;
-		System.out.println("Demmarage de l'integration de règles");
+//		System.out.println("Demmarage de l'integration de règles");
 		while((line=br.readLine())!=null)
 		{
-			System.out.println("Lancement de l'analyse de "+line);
+//			System.out.println("Lancement de l'analyse de "+line);
 			hypothesis=null;
 			conclusion=new ArrayList<String>();
 			
@@ -36,15 +36,15 @@ public class Grammaire {
 			line=line.substring(line.indexOf("->")+2);
 			while(line.contains(";"))
 			{
-				System.out.println(line);
+//				System.out.println(line);
 				conclusion.add(line.substring(0,line.indexOf(";")));
 				line=line.substring(line.indexOf(";")+1);
 			}
 			conclusion.add(line);
-			System.out.println("Nouvelle règle : "+hypothesis+"->"+conclusion.toString());
+//			System.out.println("Nouvelle règle : "+hypothesis+"->"+conclusion.toString());
 			rules.add(new Rule(hypothesis,conclusion));
 		}
-		System.out.println("Liste de règles : \n"+rules.toString());
+//		System.out.println("Liste de règles : \n"+rules.toString());
 	}
 	
 	public void fillRules(File f) throws IOException
@@ -88,13 +88,13 @@ public class Grammaire {
 // Methodes
 	public void addRule(String hypothesis, ArrayList<String> conclusion)
 	{
-		System.out.println("Regle ! Je te construit ! "+hypothesis+"->"+conclusion.toString());
+//		System.out.println("Regle ! Je te construit ! "+hypothesis+"->"+conclusion.toString());
 		Rule r = new Rule(hypothesis, conclusion);
 		r.toString();
 		this.rules.add(r);
 	}
 	
-	public void analyse(String s)
+	public void fn_chomsky(String s)
 	{
 		ArrayList<String> phrase = new ArrayList<String>();
 		String regex="((?<=[^\\p{L}])|(?=[^\\p{L}'+]))";
@@ -139,7 +139,7 @@ public class Grammaire {
 			step++;
 			for(int j=0;j<phrase.size()-1;j++)
 			{
-				System.out.println("Etape "+step+" : "+phrase.get(j));
+//				System.out.println("Etape "+step+" : "+phrase.get(j));
 				for(int k=0;k<i;k++)
 				{
 					//M(i,j) = A si B ∈  M(k,j) et C ∈  M(i-k-1,j+k+1) et A-> BC ∈  P.
@@ -151,11 +151,11 @@ public class Grammaire {
 								&&((ArrayList<String>) cyk[k][j]).contains(rules.get(r).getConclusion().get(0))
 								&&((ArrayList<String>) cyk[i-k-1][j+k+1]).contains(rules.get(r).getConclusion().get(1)))
 						{
-							System.out.println("\t\tYES");
+//							System.out.println("\t\tYES");
 							((ArrayList<String>) cyk[i][j]).add(rules.get(r).getHypothesis());
 						}
 					}
-					System.out.println("\t\tVerification terminé !");
+//					System.out.println("\t\tVerification terminé !");
 				}
 			}
 		}
